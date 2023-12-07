@@ -32,6 +32,7 @@ public class peticiones {
 
     List<Persona> listaPersonas = new ArrayList<>();
     List<Rol> listaRoles = new ArrayList<>();
+    List<Factura> listaFacturas = new ArrayList<>();
     Rol rol = new Rol();
     ArrayList<Rol> rolesexistentes = rol.roles;
     List<Factura> listaFactura = new ArrayList<>();
@@ -134,7 +135,33 @@ public class peticiones {
             return "Registro exitoso: Usuario, Persona y Rol registrados correctamente.";
         }
     }
+    
+    
+    @WebMethod(operationName = "registrarFactura")
+public String registrarFactura(
+        @WebParam(name = "idFactura") Integer idFactura,
+        @WebParam(name = "ruc") String ruc,
+        @WebParam(name = "idPersona") Persona idPersona,
+        @WebParam(name = "fecha") Date fecha,
+        @WebParam(name = "idTipoPago") Tipo_Pago idTipoPago,
+        @WebParam(name = "descuento") Double descuento,
+        @WebParam(name = "total") Double total) {
 
+    try {
+        // Crear una nueva instancia de Factura
+        Factura nuevaFactura = new Factura(idFactura, ruc, idPersona, fecha, idTipoPago, descuento, total);
+
+        // Agregar la nueva factura a la lista
+        listaFacturas.add(nuevaFactura);
+
+        return "Factura registrada con éxito.";
+    } catch (Exception e) {
+        // Manejo de la excepción
+        e.printStackTrace();
+        return "Error al registrar la factura.";
+    }
+}
+    
     @WebMethod(operationName = "registrarrol")
     public String registrarrol(
             @WebParam(name = "rolnombre") String rolnombre,
