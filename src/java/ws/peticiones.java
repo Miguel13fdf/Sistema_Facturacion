@@ -34,17 +34,7 @@ public class peticiones {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
-
-    /**
-     * Web service operation
-     * @param nombre
-     * @return 
-     */
-   
-
-    
-    
-    
+  
     @WebMethod(operationName = "estadorol")
     public Boolean estadorol(@WebParam(name = "nombrerol") String nombrerol) {
         Rol rol = new Rol();
@@ -76,14 +66,6 @@ public class peticiones {
     }
       private ArrayList<UsuarioRol> bd_tabla_usuario_rol = new ArrayList<>();
 
-    /**
-     * This is a sample web service operation
-     */
-    
-
-    /**
-     * Web service operation
-     */
     
     @WebMethod(operationName = "siexisterol")
     public Boolean siexisterol(@WebParam(name = "nombre") String nombre) {
