@@ -49,6 +49,14 @@ public class Rol {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public ArrayList<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(ArrayList<Rol> roles) {
+        this.roles = roles;
+    }
     
     
 }
