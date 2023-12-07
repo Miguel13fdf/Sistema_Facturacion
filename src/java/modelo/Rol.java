@@ -4,11 +4,15 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author joelu
  */
+
 public class Rol {
+    public ArrayList<Rol> roles = new ArrayList<>();
     int id_rol;
     String rol;
     boolean estado;
