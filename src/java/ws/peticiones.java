@@ -32,21 +32,10 @@ public class peticiones {
 
     /**
      * Web service operation
+     * @param nombre
+     * @return 
      */
-    @WebMethod(operationName = "siexisterol")
-    public Boolean siexisterol(@WebParam(name = "nombre") String nombre) {
-        Rol rol = new Rol();
-        
-        ArrayList<Rol> rolesexistentes = rol.getRoles();
-        
-        for (Rol rols: rolesexistentes) {
-            if (rols.getRol().equals(nombre)) {
-                return true;
-            }
-            
-        }
-        return false;
-    }
+   
 
     
     
@@ -85,10 +74,7 @@ public class peticiones {
     /**
      * This is a sample web service operation
      */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
+    
 
     /**
      * Web service operation
@@ -135,10 +121,10 @@ public String registrarUsuarioPersonaRol(
     if (nuevoUsuario.existeUsuario(nombreUsuario)) {
         return "El usuario ya existe. Por favor, elige otro nombre de usuario.";
     } else {
-        // Agregar las instancias a las listas correspondientes
+       
         nuevoUsuario.usuarios.add(nuevoUsuario);
         nuevaPersona.personas.add(nuevaPersona);
-        nuevoRol.roles.add(nuevoRol);
+       nuevoRol.roles.add(nuevoRol);
         UsuarioRol usuariorol = new UsuarioRol(nuevoUsuario, nuevoRol);
         bd_tabla_usuario_rol.add(usuariorol);
 
@@ -147,31 +133,32 @@ public String registrarUsuarioPersonaRol(
 }
 
     @WebMethod(operationName = "loginUsuario")
-    public String loginUsuario(
-            @WebParam(name = "nombreUsuario") String nombreUsuario,
-            @WebParam(name = "passwordUsuario") String passwordUsuario) {
+public String loginUsuario(
+        @WebParam(name = "nombreUsuario") String nombreUsuario,
+        @WebParam(name = "passwordUsuario") String passwordUsuario) {
 
-        // Buscar el usuario en la lista
-        Usuario usuarioEncontrado = null;
-        ArrayList<Usuario> usuario = usuarioEncontrado.usuarios;
-        for (Usuario usuario2 : usuario) {
-            if (usuario2.getUser().equals(nombreUsuario) && usuario2.getPassword().equals(passwordUsuario)) {
-                usuarioEncontrado = usuario2;
-                break;
-            }
-        }
-
-        // Verificar si se encontró el usuario
-        if (usuarioEncontrado != null) {
-            // Obtener el nombre de usuario
-            String nombre = usuarioEncontrado.getPersona().getNombre();
-
-            // Devolver información
-            return "Login exitoso. Usuario: " + nombre;
-        } else {
-            // Usuario no encontrado
-            return "Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.";
+   String rol="";
+    Usuario usuarioEncontrado = null;
+    for (UsuarioRol usuario : bd_tabla_usuario_rol) {
+        if (usuario.getId_usuario().getUser().equals(nombreUsuario) && usuario.getId_usuario().getPassword().equals(passwordUsuario)) {
+            usuarioEncontrado = usuario.getId_usuario();
+            rol=usuario.getId_rol().getRol();
+            break;
         }
     }
+
+    // Verificar si se encontró el usuario
+    if (usuarioEncontrado != null) {
+        // Obtener el nombre de usuario
+        String nombre = usuarioEncontrado.getPersona().getNombre();
+
+        // Devolver información
+        return "Login exitoso. Usuario: " + nombre+" y su rol es: "+ rol;
+    } else {
+        // Usuario no encontrado
+        return "Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.";
+    }
+}
+
 }
          
