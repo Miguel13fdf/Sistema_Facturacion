@@ -27,9 +27,6 @@ public class Usuario {
         this.persona = persona;
     }
 
-    public Usuario() {
-    }
-
     /**
      * @return the id_usuario
      */
@@ -99,8 +96,13 @@ public class Usuario {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
-     public boolean existeUsuario(String nombreUsuario) {
-        return usuarios.stream().anyMatch(usuario -> usuario.getUser().equals(nombreUsuario));
+     public boolean existeUsuario(String username) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUser().equals(username)) {
+                return true;
+            }
+        }
+        return false; 
     }
     
     

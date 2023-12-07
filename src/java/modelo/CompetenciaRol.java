@@ -7,6 +7,7 @@ public class CompetenciaRol {
     private Rol roles;
     private Competencia competencias;
 
+     ArrayList<CompetenciaRol> relaciones;
     public CompetenciaRol() {
     }
 
@@ -17,7 +18,15 @@ public class CompetenciaRol {
     
   
     
-    
+    //Metodos
+    public void agregarRelacion(Competencia competencia, Rol rol) {
+        CompetenciaRol relacion = new CompetenciaRol(rol, competencia);
+        relaciones.add(relacion);
+    }
+
+    public ArrayList<CompetenciaRol> getRelaciones() {
+        return relaciones;
+    }
 
     
 

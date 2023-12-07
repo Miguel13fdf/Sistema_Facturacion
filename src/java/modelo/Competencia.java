@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * @author joelu
  */
 public class Competencia {
-    public ArrayList<Competencia> competencias;
+    ArrayList<Competencia> competencias;
 
-    private int id_competencia;
-    private String nombre;
-    private boolean Estado;
+    int id_competencia;
+    String nombre;
+    boolean Estado;
 
     public Competencia() {
     }
@@ -26,13 +26,6 @@ public class Competencia {
         this.nombre = nombre;
         this.Estado = Estado;
     }
-
-    public Competencia(int id_competencia, String nombre, boolean Estado) {
-        this.id_competencia = id_competencia;
-        this.nombre = nombre;
-        this.Estado = Estado;
-    }
-    
 
     public ArrayList<Competencia> getCompetencias() {
         return competencias;

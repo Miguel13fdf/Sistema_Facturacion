@@ -16,31 +16,12 @@ public class Proveedores {
     private String pais;
     private String correo;
     private String moneda;
-    private Clasificacion clasificacion;
 
     /**
      * @return the id_proveedor
      */
     public int getId_proveedor() {
         return id_proveedor;
-    }
-
-    public Proveedores(int id_proveedor, String ruc, String telefono, String pais, String correo, String moneda, Clasificacion clasificacion) {
-        this.id_proveedor = id_proveedor;
-        this.ruc = ruc;
-        this.telefono = telefono;
-        this.pais = pais;
-        this.correo = correo;
-        this.moneda = moneda;
-        this.clasificacion = clasificacion;
-    }
-
-    public Clasificacion getClasificacion() {
-        return clasificacion;
-    }
-
-    public void setClasificacion(Clasificacion clasificacion) {
-        this.clasificacion = clasificacion;
     }
 
     /**

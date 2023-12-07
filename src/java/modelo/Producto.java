@@ -8,18 +8,6 @@ public class Producto {
     private Clasificacion id_clasificacion;
     private Proveedores id_proveedor;
     private boolean iva;
-    private String foto;
-
-    public Producto(int id_producto, int stock, double precio_unitario, String unidad, Clasificacion id_clasificacion, Proveedores id_proveedor, boolean iva, String foto) {
-        this.id_producto = id_producto;
-        this.stock = stock;
-        this.precio_unitario = precio_unitario;
-        this.unidad = unidad;
-        this.id_clasificacion = id_clasificacion;
-        this.id_proveedor = id_proveedor;
-        this.iva = iva;
-        this.foto = foto;
-    }
 
     public Producto() {
     }
@@ -36,14 +24,6 @@ public class Producto {
 
     public int getId_producto() {
         return id_producto;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public void setId_producto(int id_producto) {
