@@ -62,17 +62,20 @@ public class peticiones {
         }
         return null;
     }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "operation")
-    public Boolean operation(@WebParam(name = "nombre") String nombre) {
-        Competencia compe =  new Competencia();
-        ArrayList<Competencia> competenciaexiste = compe.getCompetencias();
-        
-        return null;
-    }
     
+        @WebMethod(operationName = "siexisteComp")
+    public Boolean siexisteComp(@WebParam(name = "idcomp") String idcomp) {
+        Competencia competencia = new Competencia();
+        
+        ArrayList<Competencia> competenciasExistentes = competencia.getCompetencias();
+        
+        for (Competencia comps: competenciasExistentes) {
+            if (comps.getCompetencias().equals(idcomp)) {
+                return true;
+            }
+            
+        }
+        return false;
+    }
 }
          
