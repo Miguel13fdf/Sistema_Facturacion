@@ -6,7 +6,7 @@ public class ItemFactura {
     
     private int id_item_factura;
     private Factura id_fcatura;
-    private Producto id_producto
+    private Producto id_producto;
     private int cantidad;
     private double precio;
     private double subtotal;
