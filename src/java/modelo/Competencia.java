@@ -4,11 +4,15 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author joelu
  */
 public class Competencia {
+    ArrayList<Competencia>competencias = new ArrayList<>();
+    
     int id_competencia;
     String nombre;
     boolean Estado;
@@ -20,6 +24,14 @@ public class Competencia {
         this.id_competencia = id_competencia;
         this.nombre = nombre;
         this.Estado = Estado;
+    }
+
+    public ArrayList<Competencia> getCompetencias() {
+        return competencias;
+    }
+
+    public void setCompetencias(ArrayList<Competencia> competencias) {
+        this.competencias = competencias;
     }
 
     public int getId_competencia() {
