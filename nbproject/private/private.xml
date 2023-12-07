@@ -3,8 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/luisd/OneDrive/Documentos/GitHub/Sistema_Facturacion/src/java/modelo/Factura.java</file>
-            <file>file:/C:/Users/luisd/OneDrive/Documentos/GitHub/Sistema_Facturacion/src/java/modelo/ItemFactura.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Persona.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/web/index.html</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Clasificacion.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Rol.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Factura.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Proveedores.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/ItemFactura.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/UsuarioRol.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/CompetenciaRol.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Producto.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/ws/peticiones.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Usuario.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Tipo_Pago.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Sistema_Facturacion/src/java/modelo/Competencia.java</file>
         </group>
     </open-files>
 </project-private>
