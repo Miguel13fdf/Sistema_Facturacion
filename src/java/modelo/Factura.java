@@ -88,6 +88,10 @@ public class Factura {
     public void setTotal(Double total) {
         this.total = total;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Factura{" + "id_factura=" + id_factura + ", ruc=" + ruc + ", id_persona=" + id_persona + ", fecha=" + fecha + ", id_tipo_pago=" + id_tipo_pago + ", descuento=" + descuento + ", total=" + total + '}';
+    }
     
 }
