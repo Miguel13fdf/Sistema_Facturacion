@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author USUARIO
@@ -15,6 +17,7 @@ public class Usuario {
     private String user;
     private String password;
     private Persona persona;
+    public ArrayList<Usuario> usuarios= new ArrayList<>();
 
     public Usuario(int id_usuario, int id_persona, String user, String password, Persona persona) {
         this.id_usuario = id_usuario;
@@ -92,6 +95,14 @@ public class Usuario {
      */
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+     public boolean existeUsuario(String username) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUser().equals(username)) {
+                return true;
+            }
+        }
+        return false; 
     }
     
     

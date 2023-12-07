@@ -5,11 +5,14 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author USUARIO
  */
 public class Persona {
+    public   ArrayList<Persona> personas=new ArrayList<>();
     private int id_persona;
     private String nombre;
     private String apellido;
@@ -112,6 +115,27 @@ public class Persona {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
+
+    public Persona buscarPorDni(String dni) {
+        for (Persona persona : personas) {
+            if (persona.getDni().equals(dni)) {
+                return persona;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<String> buscarNombresPorDni(String dni) {
+        ArrayList<String> nombresEncontrados = new ArrayList<>();
+
+        for (Persona persona : personas) {
+            if (persona.getDni().equals(dni)) {
+                String nombreCompleto = persona.getNombre() + " " + persona.getApellido();
+                nombresEncontrados.add(nombreCompleto);
+            }
+        }
+
+        return nombresEncontrados.isEmpty() ? null : nombresEncontrados;
+    }
+
 }

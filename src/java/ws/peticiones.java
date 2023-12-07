@@ -5,9 +5,11 @@
  */
 package ws;
 
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import modelo.Rol;
 
 /**
  *
@@ -22,5 +24,23 @@ public class peticiones {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "siexisterol")
+    public Boolean siexisterol(@WebParam(name = "nombre") String nombre) {
+        Rol rol = new Rol();
+        
+        ArrayList<Rol> rolesexistentes = rol.roles;
+        
+        for (Rol rols: rolesexistentes) {
+            if (rols.getRol().equals(nombre)) {
+                return true;
+            }
+            
+        }
+        return false;
     }
 }
