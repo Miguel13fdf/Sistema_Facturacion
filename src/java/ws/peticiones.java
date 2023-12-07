@@ -27,6 +27,8 @@ import modelo.UsuarioRol;
 public class peticiones {
     List<Persona> listaPersonas = new ArrayList<>();
     List<Rol> listaRoles = new ArrayList<>();
+      Rol rol = new Rol();
+     ArrayList<Rol> rolesexistentes = rol.roles;
     /**
      * This is a sample web service operation
      */
@@ -69,9 +71,17 @@ public class peticiones {
     
     @WebMethod(operationName = "siexisterol")
     public Boolean siexisterol(@WebParam(name = "nombre") String nombre) {
-        Rol rol = new Rol();
-        
-        ArrayList<Rol> rolesexistentes = rol.roles;
+      
+        Rol rol2= new Rol(1, "admin", true);
+          Rol rol3= new Rol(2, "cliente", true);
+           Rol rol4= new Rol(3, "empleado", true);
+             Rol rol5= new Rol(4, "vendedor", true);
+              Rol rol6= new Rol(5, "secretaria", true);
+        rol.roles.add(rol2);
+          rol.roles.add(rol3);
+            rol.roles.add(rol4);
+              rol.roles.add(rol5);
+                 rol.roles.add(rol6);
         
         for (Rol rols: rolesexistentes) {
             if (rols.getRol().equals(nombre)) {
@@ -117,7 +127,34 @@ public String registrarUsuarioPersonaRol(
 
         return "Registro exitoso: Usuario, Persona y Rol registrados correctamente.";
     }
+}@WebMethod(operationName = "registrarrol")
+public String registrarrol(
+        @WebParam(name = "rolnombre") String rolnombre,
+        @WebParam(name = "estado") boolean estado,
+        @WebParam(name = "id") int id) {
+
+    try {
+        // Crear una nueva instancia de Rol
+        Rol rol = new Rol(id, rolnombre, estado);
+
+        // Verificar si el rol ya existe
+        for (Rol rols : rolesexistentes) {
+            if (rols.getId_rol() == id) {
+                return "El rol con el mismo ID ya existe. No se puede registrar.";
+            }
+        }
+
+        // Agregar el nuevo rol a la lista
+       rolesexistentes.add(rol);
+        return "Éxito al registrar el rol";
+    } catch (Exception e) {
+        // Manejo de la excepción
+        e.printStackTrace(); // Imprime la traza de la excepción (puedes cambiar esto según tus necesidades)
+        return "Error al registrar el rol";
+    }
 }
+
+
 
     @WebMethod(operationName = "loginUsuario")
 public String loginUsuario(
