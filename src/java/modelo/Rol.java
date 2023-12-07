@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class Rol {
-    public ArrayList<Rol> roles = new ArrayList<>();
+     ArrayList<Rol> roles = new ArrayList<>();
     int id_rol;
     String rol;
     boolean estado;
