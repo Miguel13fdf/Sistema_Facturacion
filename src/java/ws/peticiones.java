@@ -6,11 +6,15 @@
 package ws;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import modelo.Clasificacion;
 import modelo.Competencia;
 import modelo.Persona;
+import modelo.Producto;
+import modelo.Proveedores;
 import modelo.Rol;
 import modelo.Usuario;
 import modelo.UsuarioRol;
@@ -21,7 +25,8 @@ import modelo.UsuarioRol;
  */
 @WebService(serviceName = "peticiones")
 public class peticiones {
-
+    List<Persona> listaPersonas = new ArrayList<>();
+    List<Rol> listaRoles = new ArrayList<>();
     /**
      * This is a sample web service operation
      */
@@ -159,6 +164,45 @@ public String loginUsuario(
         return "Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.";
     }
 }
+    @WebMethod(operationName = "buscarP")
+    public String buscarP(@WebParam(name = "dni") String dni) {
+        for (Persona persona : listaPersonas) {
+            if (dni.equals(persona.getDni())) {
+                dni=persona.getDni();
+                break;
+            }
+        }
+        return dni;
+    }
 
+    @WebMethod(operationName = "nombreCompl")
+    public String nombreCompl(@WebParam(name = "nombreCompleto") String nombreCompleto) {
+        String nombre = null;
+        for (Persona persona : listaPersonas) {
+            if (nombreCompleto.equals(persona.getNombre()+persona.getApellido())) {
+                nombre = persona.getNombre()+persona.getApellido();
+                break;
+            }
+        }
+        return nombre;
+    }
+    
+        @WebMethod(operationName = "crearProducto")
+    public boolean crearProducto(
+            @WebParam(name = "idProducto") int idProducto,
+            @WebParam(name = "stock") int stock,
+            @WebParam(name = "precioUnitario") double precioUnitario,
+            @WebParam(name = "unidad") String unidad,
+            @WebParam(name = "idClasificacion") Clasificacion idClasificacion,
+            @WebParam(name = "idProveedor") Proveedores idProveedor,
+            @WebParam(name = "iva") boolean iva) {
+
+        Producto nuevoProducto = new Producto(idProducto, stock, precioUnitario, unidad, idClasificacion, idProveedor, iva);
+
+        ArrayList<Producto> productos = new ArrayList<>();
+        productos.add(nuevoProducto);
+
+        return true;
+    }
 }
          
