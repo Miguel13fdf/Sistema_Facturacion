@@ -1,43 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author joelu
- */
 public class CompetenciaRol {
-    Rol rol;
-    Competencia competencia;
+   
+    private Rol roles;
+    private Competencia competencias;
 
+     ArrayList<CompetenciaRol> relaciones;
     public CompetenciaRol() {
     }
 
-    public CompetenciaRol(Rol rol, Competencia competencia) {
-        this.rol = rol;
-        this.competencia = competencia;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-    public Competencia getCompetencia() {
-        return competencia;
-    }
-
-    public void setCompetencia(Competencia competencia) {
-        this.competencia = competencia;
+    public CompetenciaRol(Rol roles, Competencia competencias) {
+        this.roles = roles;
+        this.competencias = competencias;
     }
     
+  
     
+    //Metodos
+    public void agregarRelacion(Competencia competencia, Rol rol) {
+        CompetenciaRol relacion = new CompetenciaRol(rol, competencia);
+        relaciones.add(relacion);
+    }
+
+    public ArrayList<CompetenciaRol> getRelaciones() {
+        return relaciones;
+    }
+
+    
+
+    public Rol getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Rol roles) {
+        this.roles = roles;
+    }
+
+    public Competencia getCompetencias() {
+        return competencias;
+    }
+
+    public void setCompetencias(Competencia competencias) {
+        this.competencias = competencias;
+    }
+
     
 }
