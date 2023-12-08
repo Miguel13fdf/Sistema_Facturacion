@@ -5,26 +5,19 @@ public class Producto {
     private int stock;
     private double precio_unitario;
     private String unidad;
-    private Clasificacion id_clasificacion;
-    private Proveedores id_proveedor;
+    private int id_clasificacion;
+    private int id_proveedor;
     private boolean iva;
-    private String foto;
 
-    public Producto(int id_producto, int stock, double precio_unitario, String unidad, Clasificacion id_clasificacion, Proveedores id_proveedor, boolean iva, String foto) {
-        this.id_producto = id_producto;
-        this.stock = stock;
-        this.precio_unitario = precio_unitario;
-        this.unidad = unidad;
-        this.id_clasificacion = id_clasificacion;
-        this.id_proveedor = id_proveedor;
-        this.iva = iva;
-        this.foto = foto;
-    }
+   
 
     public Producto() {
     }
 
-    public Producto(int id_producto, int stock, double precio_unitario, String unidad, Clasificacion id_clasificacion, Proveedores id_proveedor, boolean iva) {
+    
+//
+
+    public Producto(int id_producto, int stock, double precio_unitario, String unidad, int id_clasificacion, int id_proveedor, boolean iva) {
         this.id_producto = id_producto;
         this.stock = stock;
         this.precio_unitario = precio_unitario;
@@ -36,14 +29,6 @@ public class Producto {
 
     public int getId_producto() {
         return id_producto;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public void setId_producto(int id_producto) {
@@ -74,19 +59,19 @@ public class Producto {
         this.unidad = unidad;
     }
 
-    public Clasificacion getId_clasificacion() {
+    public int getId_clasificacion() {
         return id_clasificacion;
     }
 
-    public void setId_clasificacion(Clasificacion id_clasificacion) {
+    public void setId_clasificacion(int id_clasificacion) {
         this.id_clasificacion = id_clasificacion;
     }
 
-    public Proveedores getId_proveedor() {
+    public int getId_proveedor() {
         return id_proveedor;
     }
 
-    public void setId_proveedor(Proveedores id_proveedor) {
+    public void setId_proveedor(int id_proveedor) {
         this.id_proveedor = id_proveedor;
     }
 
@@ -97,5 +82,5 @@ public class Producto {
     public void setIva(boolean iva) {
         this.iva = iva;
     }
-//
+    
 }
