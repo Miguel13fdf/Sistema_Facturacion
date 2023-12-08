@@ -14,16 +14,16 @@ import java.util.Date;
 public class Factura {
     private Integer id_factura;
     private String ruc;
-    private Persona id_persona;
+    private int id_persona;
     private Date fecha;
-    private Tipo_Pago id_tipo_pago;
+    private int id_tipo_pago;
     private Double descuento;
     private Double total;
 
     public Factura() {
     }
 
-    public Factura(Integer id_factura, String ruc, Persona id_persona, Date fecha, Tipo_Pago id_tipo_pago, Double descuento, Double total) {
+    public Factura(Integer id_factura, String ruc, int id_persona, Date fecha, int id_tipo_pago, Double descuento, Double total) {
         this.id_factura = id_factura;
         this.ruc = ruc;
         this.id_persona = id_persona;
@@ -49,11 +49,11 @@ public class Factura {
         this.ruc = ruc;
     }
 
-    public Persona getId_persona() {
+    public int getId_persona() {
         return id_persona;
     }
 
-    public void setId_persona(Persona id_persona) {
+    public void setId_persona(int id_persona) {
         this.id_persona = id_persona;
     }
 
@@ -65,11 +65,11 @@ public class Factura {
         this.fecha = fecha;
     }
 
-    public Tipo_Pago getId_tipo_pago() {
+    public int getId_tipo_pago() {
         return id_tipo_pago;
     }
 
-    public void setId_tipo_pago(Tipo_Pago id_tipo_pago) {
+    public void setId_tipo_pago(int id_tipo_pago) {
         this.id_tipo_pago = id_tipo_pago;
     }
 
@@ -89,9 +89,5 @@ public class Factura {
         this.total = total;
     }
 
-    @Override
-    public String toString() {
-        return "Factura{" + "id_factura=" + id_factura + ", ruc=" + ruc + ", id_persona=" + id_persona + ", fecha=" + fecha + ", id_tipo_pago=" + id_tipo_pago + ", descuento=" + descuento + ", total=" + total + '}';
-    }
-    
+   
 }

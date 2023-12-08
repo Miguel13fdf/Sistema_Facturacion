@@ -21,6 +21,7 @@ public class Proveedores {
     /**
      * @return the id_proveedor
      */
+    
     public int getId_proveedor() {
         return id_proveedor;
     }
