@@ -37,8 +37,8 @@ public class peticiones {
     Usuario nuevoUsuario = new Usuario();
     List<Usuario> listausuarios = nuevoUsuario.usuarios;
     // List<Rol> listaRoles = new ArrayList<>();
-    Rol rol = new Rol();
-    ArrayList<Rol> rolesexistentes = rol.roles;
+
+    public ArrayList<Rol> rolesexistentes = new ArrayList<>();
     List<Factura> listaFacturas = new ArrayList<>();
     List<ItemFactura> listaitemFacturas = new ArrayList<>();
     ArrayList<Clasificacion> clasiexistentes = new ArrayList<>();
@@ -85,22 +85,24 @@ public class peticiones {
         }
         return false;
     }
-
-    @WebMethod(operationName = "estadorol")
-    public Boolean estadorol(@WebParam(name = "nombrerol") String nombrerol) {
-        Rol rol = new Rol();
-
-        ArrayList<Rol> estadospornombre = rol.getRoles();
-
-        for (Rol rols : estadospornombre) {
-            if (rols.getRol().equals(nombrerol)) {
-                return rols.isEstado();
+//
+//    /**
+//     *
+//     * @param idTipoPago
+//     * @return
+//     */
+    @WebMethod(operationName = "obtenerTipoPagoPorId")
+    public Tipo_Pago obtenerTipoPagoPorId(@WebParam(name = "idTipoPago") Integer idTipoPago) {
+        for (Tipo_Pago tipoPago : lista_tipos_pagos) {
+            if (tipoPago.getId_tipo_pago().equals(idTipoPago)) {
+                // Devolver el tipo de pago encontrado
+                return tipoPago;
             }
-
         }
+
         return null;
     }
-
+//
     @WebMethod(operationName = "siexisteComp")
     public Boolean siexisteComp(@WebParam(name = "idcomp") String idcomp) {
         Competencia competencia = new Competencia();
@@ -126,11 +128,11 @@ public class peticiones {
         Rol rol4 = new Rol(3, "empleado", true);
         Rol rol5 = new Rol(4, "vendedor", true);
         Rol rol6 = new Rol(5, "secretaria", true);
-        rol.roles.add(rol2);
-        rol.roles.add(rol3);
-        rol.roles.add(rol4);
-        rol.roles.add(rol5);
-        rol.roles.add(rol6);
+        rolesexistentes.add(rol2);
+        rolesexistentes.add(rol3);
+        rolesexistentes.add(rol4);
+        rolesexistentes.add(rol5);
+        rolesexistentes.add(rol6);
 
         for (Rol rols : rolesexistentes) {
             if (rols.getRol().equals(nombre)) {
@@ -180,7 +182,7 @@ public class peticiones {
         }
         return false;
     }
-
+//
     // Método para verificar la existencia de una clasificación con un ID específico
     private boolean existeClasificacionConId(int idClasificacion) {
         for (Clasificacion clasificacion : clasificaciones) {
@@ -244,7 +246,7 @@ public class peticiones {
             return "Error al registrar la relación Competencia-Rol.";
         }
     }
-
+//
     @WebMethod(operationName = "registrarUsuarioPersonaRol")
     public Boolean registrarUsuarioPersonaRol(
             @WebParam(name = "idUsuario") int idUsuario,
@@ -273,8 +275,7 @@ public class peticiones {
         }
 
         if (rolExistente == null) {
-            rolExistente = new Rol(idRol, nombreRol, estadoRol);
-            rolesexistentes.add(rolExistente);
+            return false;
         }
         Usuario nuevoUsuario2 = new Usuario(idUsuario, idPersona, nombreUsuario, passwordUsuario, nuevaPersona);
 
@@ -291,6 +292,8 @@ public class peticiones {
             return true;
         }
     }
+
+   
 
     @WebMethod(operationName = "registrarrol")
     public String registrarrol(
@@ -340,23 +343,80 @@ public class peticiones {
             String nombre = usuarioEncontrado.getPersona().getNombre();
 
             // Devolver información
-            return "Login exitoso. Usuario: " + nombre + " y su rol es: " + rol;
+            return "Login exitoso";
+        } else {
+            // Usuario no encontrado
+            return "Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.";
+        }
+    }
+      @WebMethod(operationName = "loginUsuario")
+    public String loginUsuariorol(
+            @WebParam(name = "nombreUsuario") String nombreUsuario,
+            @WebParam(name = "passwordUsuario") String passwordUsuario) {
+
+        String rol = "";
+        Usuario usuarioEncontrado = null;
+        for (UsuarioRol usuario : bd_tabla_usuario_rol) {
+            if (usuario.getId_usuario().getUser().equals(nombreUsuario) && usuario.getId_usuario().getPassword().equals(passwordUsuario)) {
+                usuarioEncontrado = usuario.getId_usuario();
+                rol = usuario.getId_rol().getRol();
+
+            }
+        }
+
+        // Verificar si se encontró el usuario
+        if (usuarioEncontrado != null) {
+            // Obtener el nombre de usuario
+            String nombre = usuarioEncontrado.getPersona().getNombre();
+
+            // Devolver información
+            return rol;
         } else {
             // Usuario no encontrado
             return "Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.";
         }
     }
 
-    @WebMethod(operationName = "buscarP")
-    public int buscarP(@WebParam(name = "dni") String dni) {
 
-        if (persona.buscarPorDni(dni) != -1) {
+    @WebMethod(operationName = "buscarP")
+    public Persona buscarP(@WebParam(name = "dni") String dni) {
+
+        if (persona.buscarPorDni(dni) != null) {
             return persona.buscarPorDni(dni);
         }
 
-        return -1;
+        return null;
+    }
+//
+    @WebMethod(operationName = "buscarRuc")
+    public ArrayList<String> buscarRuc(@WebParam(name = "dni") String dni) {
+
+        if (persona.buscarNombresPorDni(dni) != null) {
+            return persona.buscarNombresPorDni(dni);
+        }
+
+        return null;
     }
 
+//    //rucaumenta001
+    @WebMethod(operationName = "crearProducto")
+    public boolean crearProducto(
+            @WebParam(name = "idProducto") int idProducto,
+            @WebParam(name = "stock") int stock,
+            @WebParam(name = "precioUnitario") double precioUnitario,
+            @WebParam(name = "unidad") String unidad,
+            @WebParam(name = "idClasificacion") Clasificacion idClasificacion,
+            @WebParam(name = "idProveedor") Proveedores idProveedor,
+            @WebParam(name = "iva") boolean iva
+    ) {
+
+        Producto nuevoProducto = new Producto(idProducto, stock, precioUnitario, unidad, idClasificacion, idProveedor, iva);
+
+        productos.add(nuevoProducto);
+
+        return true;
+    }
+//
     @WebMethod(operationName = "buscarProductoPorId")
     public Producto buscarProductoPorId(@WebParam(name = "idProducto") int idProducto) {
         for (Producto producto : productos) {
@@ -364,16 +424,17 @@ public class peticiones {
                 return producto;
             }
         }
+
         return null;
     }
-
+//
     @WebMethod(operationName = "registrarFacturaConItems")
     public String registrarFacturaConItems(
             @WebParam(name = "idFactura") Integer idFactura,
             @WebParam(name = "ruc") String ruc,
-            @WebParam(name = "idPersona") int idPersona,
+            @WebParam(name = "idPersona") Persona idPersona,
             @WebParam(name = "fecha") String fecha,
-            @WebParam(name = "idTipoPago") int idTipoPago,
+            @WebParam(name = "idTipoPago") Tipo_Pago idTipoPago,
             @WebParam(name = "descuento") Double descuento,
             @WebParam(name = "total") Double total,
             @WebParam(name = "itemsFactura") List<ItemFactura> itemsFactura) {
@@ -392,7 +453,20 @@ public class peticiones {
             // Asignar la factura a cada ítem y agregar los ítems a la lista
             for (ItemFactura itemFactura : itemsFactura) {
                 // Asignar la factura al ítem
-                itemFactura.setId_fcatura(itemFactura.getId_fcatura());
+                itemFactura.setId_fcatura(nuevaFactura);
+
+                // Verificar si el producto ya existe, si no, agregarlo
+                Producto productoExistente = null;
+                for (Producto producto : productos) {
+                    if (producto.getId_producto() == itemFactura.getId_producto().getId_producto()) {
+                        productoExistente = producto;
+                        break;
+                    }
+                }
+
+                if (productoExistente == null) {
+                    productos.add(itemFactura.getId_producto());
+                }
 
                 // Agregar el ítem a la lista
                 listaitemFacturas.add(itemFactura);
@@ -405,26 +479,10 @@ public class peticiones {
             return "Error al registrar la factura y los items.";
         }
     }
-
-    //listados
-    @WebMethod(operationName = "listarPersonas")
-    public List<Persona> listarPersonas() {
-        return listaPersonas;
-    }
-
-    @WebMethod(operationName = "listarUsuarios")
-    public List<Usuario> listarUsuarios() {
-        return listausuarios;
-    }
-    @WebMethod(operationName = "listarClasificacion")
-    public List<Clasificacion> listarClasificacion() {
-        return clasificaciones;
-    }
-    @WebMethod(operationName = "listarProveedor")
-    public List<Proveedores> listarProveedor() {
-        return proveedores;
-    }
-
+    
+     
+    
+//
     @WebMethod(operationName = "buscarRUCProveedorPorID")
     public String buscarRUCProveedorPorID(@WebParam(name = "idProveedor") int idProveedor) {
         for (Proveedores proveedor : proveedores) {
@@ -435,82 +493,169 @@ public class peticiones {
 
         return "Proveedor no encontrado";
     }
+    
+//
+//    
+//
+   
 
-    @WebMethod(operationName = "buscarGrupoClasificacionPorID")
-    public String buscarGrupoClasificacionPorID(@WebParam(name = "idClasificacion") int idClasificacion) {
-        for (Clasificacion clasificacion : clasificaciones) {
-            if (clasificacion.getId_clasificacion() == idClasificacion) {
-                return clasificacion.getGrupo();
-            }
-        }
-        // Si no se encuentra la clasificación, puedes devolver un mensaje de error o manejarlo según tus necesidades.
-        return "Clasificación no encontrada";
+   
+    
+
+//    //listados
+    @WebMethod(operationName = "listarPersonas")
+    public List<Persona> listarPersonas() {
+        return listaPersonas;
     }
 //
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "registrarProductos")
-    public Boolean registrarProductos(@WebParam(name = "id") int id, @WebParam(name = "stock") int stock, @WebParam(name = "unidad") String unidad, @WebParam(name = "categoria") int categoria, @WebParam(name = "proveedor") int proveedor, @WebParam(name = "iva") boolean iva) {
+    @WebMethod(operationName = "listarUsuarios")
+    public List<Usuario> listarUsuarios() {
+        return listausuarios;
+    }
+
+    @WebMethod(operationName = "listarroles")
+    public List<Rol> listarroles() {
+        return rolesexistentes;
+    }
+
+    @WebMethod(operationName = "listartipospagos")
+    public List<Tipo_Pago> listapagos() {
+        return listapagos();
+    }
+//
+
+    @WebMethod(operationName = "listarProveedores")
+    public List<Proveedores> listarProveedores() {
+        return proveedores;
+    }
+    @WebMethod(operationName = "listarProductos")
+    public List<Producto> listarproductos() {
+        return  productos;
+    }
+
+    @WebMethod(operationName = "listarclasificacion")
+    public List<Clasificacion> listarclasificacioes() {
+        return clasificaciones;
+    }
+    
+    @WebMethod(operationName = "registrarProveedor")
+    public Boolean registrarProveedor(
+            @WebParam(name = "id") int id ,
+            @WebParam(name = "ruc") String ruc,
+            @WebParam(name = "telefono") String telefono,
+            @WebParam(name = "pais") String pais, 
+            @WebParam(name = "correo") String correo, 
+            @WebParam(name = "moneda") String moneda){
+
         try {
-            Producto producto = new Producto(proveedor, stock, proveedor, unidad, categoria, proveedor, iva);
-            for (Producto productor: productos) {
-                if (productor.getId_producto()==id) {
-                    return false;
-                }
-            }
-            productos.add(producto);
-            return true;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "buscarClasificacionporNombre")
-    public Integer buscarClasificacionporNombre(@WebParam(name = "nombre") String nombre) {
-        for(Clasificacion clasificacion : clasificaciones){
-            if (clasificacion.getGrupo().toLowerCase()== nombre.toLowerCase()) {
-                return clasificacion.getId_clasificacion();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "buscarProveedorporRUC")
-    public Integer buscarProveedorporRUC(@WebParam(name = "ruc") String ruc) {
-        for (Proveedores proveedor: proveedores) {
-            if (proveedor.getRuc().equals(ruc)) {
-                return proveedor.getId_proveedor();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "registrarproveedor")
-    public Boolean registrarproveedor(@WebParam(name = "id") int id, @WebParam(name = "ruc") String ruc, @WebParam(name = "telefono") String telefono, @WebParam(name = "pais") String pais, @WebParam(name = "correo") String correo, @WebParam(name = "moneda") String moneda) {
-        try {
+            // Crear una nueva instancia de Rol
             Proveedores proveedor = new Proveedores(id, ruc, telefono, pais, correo, moneda);
-            for (Proveedores proveedors :proveedores) {
-                if (proveedors.getRuc().equals(ruc)) {
+
+            // Verificar si el rol ya existe
+            for (Proveedores proveedors : proveedores) {
+                if (proveedors.getRuc()== ruc) {
                     return false;
                 }
             }
+
+            // Agregar el nuevo rol a la lista
             proveedores.add(proveedor);
             return true;
         } catch (Exception e) {
+            // Manejo de la excepción
+            e.printStackTrace(); // Imprime la traza de la excepción (puedes cambiar esto según tus necesidades)
             return null;
         }
-        
     }
+    
+    @WebMethod(operationName = "buscarClasificacionporNombre")
+    public int buscarClasificacionporNombre(@WebParam(name = "nombre") String nombre) {
+        for (Clasificacion clasificacion : clasificaciones) {
+            if (clasificacion.getGrupo().equals(nombre)) {
+                return clasificacion.getId_clasificacion();
+            }
+        }
 
+        return -1;
+    }
+    @WebMethod(operationName = "buscarProveedorporRUC")
+    public int buscarProveedorporRUC(@WebParam(name = "ruc") String ruc) {
+        for (Proveedores proveedor : proveedores) {
+            if (proveedor.getRuc()== ruc) {
+                return proveedor.getId_proveedor();
+            }
+        }
+
+        return -1;
+    }
+    
+    @WebMethod(operationName = "registrarProductos")
+    public Boolean registrarProductos(
+            @WebParam(name = "id") int id ,
+            @WebParam(name = "stock") int stock,
+            @WebParam(name = "preciou") double preciounitario,
+            @WebParam(name = "unidad") String unidad, 
+            @WebParam(name = "clasificacion") Clasificacion id_clasificacion, 
+            @WebParam(name = "proveedores") Proveedores id_proveedor,
+            @WebParam(name = "iva") boolean iva){
+
+        try {
+            // Crear una nueva instancia de Rol
+            Producto producto = new Producto(stock, stock, preciounitario, unidad, id_clasificacion, id_proveedor, iva);
+
+            // Verificar si el rol ya existe
+            for (Producto product : productos) {
+                if (product.getId_producto()== id) {
+                    return false;
+                }
+            }
+
+            // Agregar el nuevo rol a la lista
+            productos.add(producto);
+            return true;
+        } catch (Exception e) {
+            // Manejo de la excepción
+            e.printStackTrace(); // Imprime la traza de la excepción (puedes cambiar esto según tus necesidades)
+            return null;
+        }
+    }
+    @WebMethod(operationName = "registrarClasificacion")
+    public Boolean registrarClasificacion(
+            @WebParam(name = "id") int id ,
+            @WebParam(name = "nombre") String nombre){
+
+        try {
+            // Crear una nueva instancia de Rol
+            Clasificacion clasificacion = new Clasificacion(id, nombre);
+
+            // Verificar si el rol ya existe
+            for (Clasificacion clasificacions : clasificaciones) {
+                if (clasificacions.getId_clasificacion()== id) {
+                    return false;
+                }
+            }
+
+            // Agregar el nuevo rol a la lista
+            clasificaciones.add(clasificacion);
+            return true;
+        } catch (Exception e) {
+            // Manejo de la excepción
+            e.printStackTrace(); // Imprime la traza de la excepción (puedes cambiar esto según tus necesidades)
+            return null;
+        }
+    }
+    
+    @WebMethod(operationName = "buscarProveedorporRUCObjeto")
+    public Proveedores buscarProveedorporRUCObjeto(@WebParam(name = "idProducto") String ruc) {
+        for (Proveedores provee : proveedores) {
+            if (provee.getRuc()== ruc) {
+                return provee;
+            }
+        }
+
+        return null;
+    }
+ 
+//
 }

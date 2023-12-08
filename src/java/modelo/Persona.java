@@ -116,13 +116,13 @@ public class Persona {
         this.correo = correo;
     }
 
-    public int buscarPorDni(String dni) {
+    public Persona buscarPorDni(String dni) {
         for (Persona persona : personas) {
             if (persona.getDni().equals(dni)) {
-                return persona.id_persona;
+                return persona;
             }
         }
-        return -1;
+        return null;
     }
 
     public ArrayList<String> buscarNombresPorDni(String dni) {

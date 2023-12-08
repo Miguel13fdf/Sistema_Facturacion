@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class Rol {
-    public  ArrayList<Rol> roles = new ArrayList<>();
+  
     int id_rol;
     String rol;
     boolean estado;
@@ -50,14 +50,7 @@ public class Rol {
         this.estado = estado;
     }
 
-    public ArrayList<Rol> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(ArrayList<Rol> roles) {
-        this.roles = roles;
-    }
-
+   
    
     
     

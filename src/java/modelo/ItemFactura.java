@@ -5,8 +5,8 @@ public class ItemFactura {
     
     
     private int id_item_factura;
-    private int id_fcatura;
-    private int id_producto;
+    private Factura id_fcatura;
+    private Producto id_producto;
     private int cantidad;
     private double precio;
     private double subtotal;
@@ -14,7 +14,7 @@ public class ItemFactura {
     public ItemFactura() {
     }
 
-    public ItemFactura(int id_item_factura, int id_fcatura, int id_producto, int cantidad, double precio, double subtotal) {
+    public ItemFactura(int id_item_factura, Factura id_fcatura, Producto id_producto, int cantidad, double precio, double subtotal) {
         this.id_item_factura = id_item_factura;
         this.id_fcatura = id_fcatura;
         this.id_producto = id_producto;
@@ -31,19 +31,19 @@ public class ItemFactura {
         this.id_item_factura = id_item_factura;
     }
 
-    public int getId_fcatura() {
+    public Factura getId_fcatura() {
         return id_fcatura;
     }
 
-    public void setId_fcatura(int id_fcatura) {
+    public void setId_fcatura(Factura id_fcatura) {
         this.id_fcatura = id_fcatura;
     }
 
-    public int getId_producto() {
+    public Producto getId_producto() {
         return id_producto;
     }
 
-    public void setId_producto(int id_producto) {
+    public void setId_producto(Producto id_producto) {
         this.id_producto = id_producto;
     }
 
@@ -70,6 +70,6 @@ public class ItemFactura {
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
-    
-    
+
+//re
 }
