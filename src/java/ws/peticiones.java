@@ -36,25 +36,24 @@ public class peticiones {
     List<Persona> listaPersonas = persona.personas;
     Usuario nuevoUsuario = new Usuario();
     List<Usuario> listausuarios = nuevoUsuario.usuarios;
-    // List<Rol> listaRoles = new ArrayList<>();
-    Rol rol = new Rol();
-    ArrayList<Rol> rolesexistentes = rol.roles;
+   // List<Rol> listaRoles = new ArrayList<>();
+  
+   public  ArrayList<Rol> rolesexistentes = new ArrayList<>();
     List<Factura> listaFacturas = new ArrayList<>();
     List<ItemFactura> listaitemFacturas = new ArrayList<>();
     ArrayList<Clasificacion> clasiexistentes = new ArrayList<>();
     Competencia compi = new Competencia();
     ArrayList<Competencia> competenciaexistentes = compi.competencias;
     ArrayList<Producto> productos = new ArrayList<>();
-    ArrayList<Clasificacion> clasificaciones = new ArrayList<>();
-    ArrayList<Proveedores> proveedores = new ArrayList<>();
-    ArrayList<Tipo_Pago> lista_tipos_pagos = new ArrayList<>();
+     ArrayList<Clasificacion> clasificaciones = new ArrayList<>();
+      ArrayList<Proveedores> proveedores = new ArrayList<>();
+         ArrayList<Tipo_Pago> lista_tipos_pagos = new ArrayList<>();
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
-
-    @WebMethod(operationName = "registrarTipoPago")
+     @WebMethod(operationName = "registrarTipoPago")
     public Tipo_Pago registrarTipoPago(
             @WebParam(name = "idTipoPago") Integer idTipoPago,
             @WebParam(name = "tipo") String tipo,
@@ -85,21 +84,21 @@ public class peticiones {
         }
         return false;
     }
-
-    @WebMethod(operationName = "estadorol")
-    public Boolean estadorol(@WebParam(name = "nombrerol") String nombrerol) {
-        Rol rol = new Rol();
-
-        ArrayList<Rol> estadospornombre = rol.getRoles();
-
-        for (Rol rols : estadospornombre) {
-            if (rols.getRol().equals(nombrerol)) {
-                return rols.isEstado();
-            }
-
+    @WebMethod(operationName = "obtenerTipoPagoPorId")
+public Tipo_Pago obtenerTipoPagoPorId(@WebParam(name = "idTipoPago") Integer idTipoPago) {
+    for (Tipo_Pago tipoPago : lista_tipos_pagos) {
+        if (tipoPago.getId_tipo_pago().equals(idTipoPago)) {
+            // Devolver el tipo de pago encontrado
+            return tipoPago;
         }
-        return null;
     }
+
+    // Si no se encuentra, puedes devolver null o manejarlo según tus necesidades
+    return null;
+}
+
+
+    
 
     @WebMethod(operationName = "siexisteComp")
     public Boolean siexisteComp(@WebParam(name = "idcomp") String idcomp) {
@@ -126,11 +125,11 @@ public class peticiones {
         Rol rol4 = new Rol(3, "empleado", true);
         Rol rol5 = new Rol(4, "vendedor", true);
         Rol rol6 = new Rol(5, "secretaria", true);
-        rol.roles.add(rol2);
-        rol.roles.add(rol3);
-        rol.roles.add(rol4);
-        rol.roles.add(rol5);
-        rol.roles.add(rol6);
+       rolesexistentes.add(rol2);
+        rolesexistentes.add(rol3);
+       rolesexistentes.add(rol4);
+        rolesexistentes.add(rol5);
+       rolesexistentes.add(rol6);
 
         for (Rol rols : rolesexistentes) {
             if (rols.getRol().equals(nombre)) {
@@ -140,8 +139,8 @@ public class peticiones {
         }
         return false;
     }
-
-    @WebMethod(operationName = "registrarProveedorYClasificacion")
+    
+     @WebMethod(operationName = "registrarProveedorYClasificacion")
     public String registrarProveedorYClasificacion(
             @WebParam(name = "idProveedor") int idProveedor,
             @WebParam(name = "ruc") String ruc,
@@ -272,10 +271,10 @@ public class peticiones {
             }
         }
 
-        if (rolExistente == null) {
-            rolExistente = new Rol(idRol, nombreRol, estadoRol);
-            rolesexistentes.add(rolExistente);
-        }
+        
+    if (rolExistente == null) {
+       return false;
+    }
         Usuario nuevoUsuario2 = new Usuario(idUsuario, idPersona, nombreUsuario, passwordUsuario, nuevaPersona);
 
         if (nuevoUsuario.existeUsuario(nombreUsuario)) {
@@ -340,7 +339,7 @@ public class peticiones {
             String nombre = usuarioEncontrado.getPersona().getNombre();
 
             // Devolver información
-            return "Login exitoso. Usuario: " + nombre + " y su rol es: " + rol;
+            return "Login exitoso";
         } else {
             // Usuario no encontrado
             return "Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.";
@@ -356,6 +355,16 @@ public class peticiones {
 
         return null;
     }
+      @WebMethod(operationName = "buscarRuc")
+    public  ArrayList<String> buscarRuc(@WebParam(name = "dni") String dni) {
+
+        if (persona.buscarNombresPorDni(dni) != null) {
+            return persona.buscarNombresPorDni(dni);
+        }
+
+        return null;
+    }
+   
     //rucaumenta001
 
     @WebMethod(operationName = "crearProducto")
@@ -375,6 +384,17 @@ public class peticiones {
 
         return true;
     }
+    @WebMethod(operationName = "buscarProductoPorId")
+    public Producto buscarProductoPorId(@WebParam(name = "idProducto") int idProducto) {
+        for (Producto producto : productos) {
+            if (producto.getId_producto() == idProducto) {
+                return producto;
+            }
+        }
+
+        return null;
+    }
+
 
     @WebMethod(operationName = "registrarFacturaConItems")
     public String registrarFacturaConItems(
@@ -428,6 +448,29 @@ public class peticiones {
         }
     }
 
+    @WebMethod(operationName = "buscarRUCProveedorPorID")
+    public String buscarRUCProveedorPorID(@WebParam(name = "idProveedor") int idProveedor) {
+        for (Proveedores proveedor : proveedores) {
+            if (proveedor.getId_proveedor() == idProveedor) {
+                return proveedor.getRuc();
+            }
+        }
+        
+        return "Proveedor no encontrado";
+    }
+
+    @WebMethod(operationName = "buscarGrupoClasificacionPorID")
+    public String buscarGrupoClasificacionPorID(@WebParam(name = "idClasificacion") int idClasificacion) {
+        for (Clasificacion clasificacion : clasificaciones) {
+            if (clasificacion.getId_clasificacion() == idClasificacion) {
+                return clasificacion.getGrupo();
+            }
+        }
+        // Si no se encuentra la clasificación, puedes devolver un mensaje de error o manejarlo según tus necesidades.
+        return "Clasificación no encontrada";
+    }
+
+
     //listados
     @WebMethod(operationName = "listarPersonas")
     public List<Persona> listarPersonas() {
@@ -438,11 +481,28 @@ public class peticiones {
     public List<Usuario> listarUsuarios() {
         return listausuarios;
     }
-
-    @WebMethod(operationName = "listarProveedores")
+     @WebMethod(operationName = "listarroles")
+    public  List<Rol> listarroles() {
+        return rolesexistentes;
+    }
+    @WebMethod(operationName = "listartipospagos")
+    public  List<Tipo_Pago> listapagos() {
+        return listapagos();
+    }
+ @WebMethod(operationName = "listarProveedores")
         public List<Proveedores> listarProveedores() {
         return proveedores;
-    }
+        }
+    
+    
+//
+  
+   
+
+
+
+
+
 
 //
 }
