@@ -36,7 +36,7 @@ public class peticiones {
     List<Persona> listaPersonas = persona.personas;
     Usuario nuevoUsuario = new Usuario();
     List<Usuario> listausuarios = nuevoUsuario.usuarios;
-   // List<Rol> listaRoles = new ArrayList<>();
+    // List<Rol> listaRoles = new ArrayList<>();
     Rol rol = new Rol();
     ArrayList<Rol> rolesexistentes = rol.roles;
     List<Factura> listaFacturas = new ArrayList<>();
@@ -45,15 +45,16 @@ public class peticiones {
     Competencia compi = new Competencia();
     ArrayList<Competencia> competenciaexistentes = compi.competencias;
     ArrayList<Producto> productos = new ArrayList<>();
-     ArrayList<Clasificacion> clasificaciones = new ArrayList<>();
-      ArrayList<Proveedores> proveedores = new ArrayList<>();
-         ArrayList<Tipo_Pago> lista_tipos_pagos = new ArrayList<>();
+    ArrayList<Clasificacion> clasificaciones = new ArrayList<>();
+    ArrayList<Proveedores> proveedores = new ArrayList<>();
+    ArrayList<Tipo_Pago> lista_tipos_pagos = new ArrayList<>();
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
-     @WebMethod(operationName = "registrarTipoPago")
+
+    @WebMethod(operationName = "registrarTipoPago")
     public Tipo_Pago registrarTipoPago(
             @WebParam(name = "idTipoPago") Integer idTipoPago,
             @WebParam(name = "tipo") String tipo,
@@ -139,8 +140,8 @@ public class peticiones {
         }
         return false;
     }
-    
-     @WebMethod(operationName = "registrarProveedorYClasificacion")
+
+    @WebMethod(operationName = "registrarProveedorYClasificacion")
     public String registrarProveedorYClasificacion(
             @WebParam(name = "idProveedor") int idProveedor,
             @WebParam(name = "ruc") String ruc,
@@ -271,11 +272,10 @@ public class peticiones {
             }
         }
 
-        
-    if (rolExistente == null) {
-        rolExistente = new Rol(idRol, nombreRol, estadoRol);
-        rolesexistentes.add(rolExistente);
-    }
+        if (rolExistente == null) {
+            rolExistente = new Rol(idRol, nombreRol, estadoRol);
+            rolesexistentes.add(rolExistente);
+        }
         Usuario nuevoUsuario2 = new Usuario(idUsuario, idPersona, nombreUsuario, passwordUsuario, nuevaPersona);
 
         if (nuevoUsuario.existeUsuario(nombreUsuario)) {
@@ -438,14 +438,11 @@ public class peticiones {
     public List<Usuario> listarUsuarios() {
         return listausuarios;
     }
+
+    @WebMethod(operationName = "listarProveedores")
+        public List<Proveedores> listarProveedores() {
+        return proveedores;
+    }
+
 //
-  
-   
-
-
-
-
-
-
-
 }
